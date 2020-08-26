@@ -1,9 +1,16 @@
 from django.http import HttpResponse
 
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
-from rest_framework import permissions
-from api.serializers import UserSerializer, GroupSerializer
+from rest_framework import viewsets, permissions
+from .serializers import UserSerializer, GroupSerializer, ItemSerializer
+from rest_framework.generics import ListAPIView
+from rest_framework.permissions import AllowAny
+from .models import Item
+
+class ItemListView(ListAPIView):
+    permission_classes = (AllowAny,)
+    serializer_class = ItemSerializer
+    queryset = Item.objects.all()
 
 
 class UserViewSet(viewsets.ModelViewSet):
