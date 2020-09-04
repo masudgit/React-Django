@@ -40,6 +40,7 @@ The sqlmigrate command takes migration names and returns their SQL. The exact ou
 	
 #Introducing the Django Admin:
 	python manage.py createsuperuser //admin/admin123
+    python manage.py createsuperuser --email admin@example.com --username admin
 	
 #Django REST:
 pip install djangorestframework
@@ -58,3 +59,4 @@ https://semantic-ui.com/introduction/getting-started.html
 https://github.com/the-road-to-learn-react/react-semantic-ui-example
 https://www.robinwieruch.de/react-semantic-ui-tutorial
 
+https://stackoverflow.com/questions/35760943/how-can-i-enable-cors-on-django-rest-framework

@@ -16,7 +16,9 @@ import { logout } from "../store/actions/auth";
 
 class CustomLayout extends React.Component {
   render() {
-    const { authenticated } = this.props;
+    const { authenticated,cart } = this.props;
+    console.log(cart);
+
     return (
       <div>
         <Menu inverted>
@@ -114,7 +116,8 @@ class CustomLayout extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    authenticated: state.auth.token !== null
+    authenticated: state.auth.token !== null,
+    cart: state.cart.shoppingCart
   };
 };
 

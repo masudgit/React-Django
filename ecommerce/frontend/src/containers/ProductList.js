@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { Button, Container, Icon, Image, Item, Label, Segment, Dimmer, Loader, Message } from 'semantic-ui-react'
-import { productListUrl } from '../constants';
+import { productListUrl, addToCartURL } from '../constants';
+import { authAxios } from '../utils';
 
 const paragraph = <Image src='/images/wireframe/short-paragraph.png' />
 
@@ -17,10 +18,25 @@ class ProductList extends React.Component {
 
 	componentDidMount() {
 		this.setState({ loading: true });
+
 		axios.get(productListUrl)
 			.then(res => {
 				console.log(res.data);
 				this.setState({ data: res.data, loading: false });
+			})
+			.catch(err => {
+				console.log(err)
+				this.setState({ error: err, loading: false })
+			});
+	}
+
+	handleAddToCart = slug => {
+		this.setState({ loading: true });
+		authAxios.post(addToCartURL, {slug})
+			.then(res => {
+				console.log(res.data);
+				//update the cart count
+				this.setState({ loading: false });
 			})
 			.catch(err => {
 				console.log(err)
@@ -61,7 +77,7 @@ class ProductList extends React.Component {
 								</Item.Meta>
 								<Item.Description>{item.description}</Item.Description>
 								<Item.Extra>
-									<Button primary floated='right' icon labelPosition="right">
+									<Button primary floated='right' icon labelPosition="right" onClick={() => this.handleAddToCart(item.slug)}>
 										Add to cart
 									<Icon name='cart plus' />
 									</Button>
