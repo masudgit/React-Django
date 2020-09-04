@@ -1,7 +1,7 @@
 import axios from "axios";
 import { CART_START, CART_SUCCESS, CART_FAIL }  from "./actionTypes";
 import { authAxios } from "../../utils";
-import { fetchCart } from "../../constants";
+import { orderSummaryURL } from "../../constants";
 
 export const cartStart = () => {
   return {
@@ -10,9 +10,10 @@ export const cartStart = () => {
 };
 
 export const cartSuccess = data => {
-  console.log(data);
+  //console.log(data);
   return {
-    type: CART_SUCCESS
+    type: CART_SUCCESS,
+    data
   };
 };
 
@@ -23,13 +24,13 @@ export const cartFail = error => {
   };
 };
 
-export const cartFetch = () => {
+export const fetchCart = () => {
     return dispatch => {
       dispatch(cartStart());
       authAxios
-        .post(fetchCart)
+        .get(orderSummaryURL)
         .then(res => {
-          dispatch(cartSuccess(res.data));
+          dispatch(cartSuccess(res.data)); 
         })
         .catch(err => {
           dispatch(cartFail(err));
